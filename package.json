@@ -9,8 +9,11 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kasen",
   "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "chatgpt": "^4.1.1",
     "crypto-js": "^4.1.1",
