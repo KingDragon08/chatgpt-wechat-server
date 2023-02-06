@@ -1,0 +1,26 @@
+{
+  "name": "chatgpt-wechat-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "supervisor index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chatgpt": "^4.1.1",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "koa": "^2.14.1",
+    "koa-body": "^6.0.1",
+    "koa-router": "^12.0.0",
+    "node-fetch": "^3.3.0"
+  },
+  "devDependencies": {
+    "supervisor": "^0.12.0"
+  }
+}
