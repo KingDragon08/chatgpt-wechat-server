@@ -1,6 +1,6 @@
 import { ChatGPTAPI } from 'chatgpt';
 
-export async function msg(ctx) {
+export async function chatgpt(ctx) {
   const api = new ChatGPTAPI({
     apiKey: process.env.OPENAI_API_KEY
   })
