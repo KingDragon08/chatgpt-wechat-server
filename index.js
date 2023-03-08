@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import Koa from 'koa';
 import CryptoJS from 'crypto-js';
 import router from './router.js';
+import serve from 'koa-static';
 
 dotenv.config();
 const app = new Koa();
@@ -12,6 +13,10 @@ function encrypt(word) {
   const encrypted = CryptoJS.AES.encrypt(srcs, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
   return encrypted.toString();
 }
+
+// static assets
+const home = serve('public/')
+app.use(home)
 
 // timestamp
 app.use(async (ctx, next) => {
