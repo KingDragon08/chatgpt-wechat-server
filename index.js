@@ -8,6 +8,14 @@ import cors from './lib/cors.js';
 dotenv.config();
 const app = new Koa();
 
+app.use(async (ctx, next) => {
+  if (ctx.method == 'OPTIONS') {
+    ctx.body = '';
+    ctx.status = 204;
+  }
+  await next();
+});
+
 app.use(cors);
 
 function encrypt(word) {
