@@ -4,9 +4,12 @@ import CryptoJS from 'crypto-js';
 import router from './router.js';
 import serve from 'koa-static';
 import cors from '@koa/cors';
+import onerror from 'koa-onerror';
 
 dotenv.config();
 const app = new Koa();
+
+onerror(app);
 
 function encrypt(word) {
   const key = CryptoJS.enc.Utf8.parse(process.env.AES_KEY);
@@ -19,7 +22,7 @@ function encrypt(word) {
 const home = serve('public/')
 app.use(home)
 
-app.use(cors());
+app.use(cors({ origin: (ctx) => ctx.header.origin }));
 
 // timestamp
 app.use(async (ctx, next) => {
