@@ -3,9 +3,12 @@ import Koa from 'koa';
 import CryptoJS from 'crypto-js';
 import router from './router.js';
 import serve from 'koa-static';
+import cors from '@koa/cors';
 
 dotenv.config();
 const app = new Koa();
+
+app.use(cors());
 
 function encrypt(word) {
   const key = CryptoJS.enc.Utf8.parse(process.env.AES_KEY);
