@@ -8,9 +8,6 @@ import { voice } from './ms_text_to_speech.js';
 const router = new Router();
 
 export default (app) => {
-  router.options('*', async function (ctx) {
-    ctx.status = 204;
-  });
   router.post('/msg', chatgpt);
   router.post('/wx/pay', pay);
   router.post('/wx/login', login);
