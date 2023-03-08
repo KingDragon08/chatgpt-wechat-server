@@ -87,7 +87,7 @@ export async function pay(ctx) {
     description: `${keyword}图像生成支付`,
     out_trade_no: createRandomString(16),
     amount: {
-      total: 1,
+      total: 100,
     },
     payer: { openid },
     notify_url: "https://chatgpt.hhjkln.com/wxpay/callback",
