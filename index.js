@@ -3,20 +3,10 @@ import Koa from 'koa';
 import CryptoJS from 'crypto-js';
 import router from './router.js';
 import serve from 'koa-static';
-import cors from './lib/cors.js';
+import cors from '@koa/cors';
 
 dotenv.config();
 const app = new Koa();
-
-app.use(async (ctx, next) => {
-  if (ctx.method == 'OPTIONS') {
-    ctx.body = '';
-    ctx.status = 204;
-  }
-  await next();
-});
-
-app.use(cors);
 
 function encrypt(word) {
   const key = CryptoJS.enc.Utf8.parse(process.env.AES_KEY);
@@ -59,5 +49,7 @@ app.use(async (ctx, next) => {
 });
 
 router(app);
+
+app.use(cors());
 
 app.listen(3000);
