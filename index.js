@@ -8,7 +8,7 @@ import cors from '@koa/cors';
 dotenv.config();
 const app = new Koa();
 
-app.use(cors());
+app.use(cors({ allowMethods: ['GET', 'POST', 'DELETE', 'PUT', 'OPTIONS', 'PATCH'], }));
 
 function encrypt(word) {
   const key = CryptoJS.enc.Utf8.parse(process.env.AES_KEY);
