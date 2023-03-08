@@ -8,8 +8,6 @@ import cors from '@koa/cors';
 dotenv.config();
 const app = new Koa();
 
-app.use(cors());
-
 function encrypt(word) {
   const key = CryptoJS.enc.Utf8.parse(process.env.AES_KEY);
   const srcs = CryptoJS.enc.Utf8.parse(word);
@@ -20,6 +18,8 @@ function encrypt(word) {
 // static assets
 const home = serve('public/')
 app.use(home)
+
+app.use(cors());
 
 // timestamp
 app.use(async (ctx, next) => {
