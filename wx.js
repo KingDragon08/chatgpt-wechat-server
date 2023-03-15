@@ -110,3 +110,47 @@ export async function login(ctx) {
   ctx.status = 200;
   ctx.body = result.data;
 }
+
+export async function msgSecCheck(text, openid) {
+  const accessToken = await getAccessToken();
+  const result = await axios.post(
+    `https://api.weixin.qq.com/wxa/msg_sec_check?access_token=${accessToken}`,
+    {
+      content: text,
+      version: 2,
+      scene: 4,
+      openid,
+    }
+  );
+  return result.data.result.suggest !== 'pass';
+}
+
+export async function getAccessToken() {
+  const txt = fs.readFileSync('.wx_access_token').toString();
+  if (!txt) {
+    return getAccessTokenFromWX();
+  }
+  const [token, timestamp] = txt.split(',');
+  const currentTimestamp = new Date().getTime();
+  // 6000 秒提前过期，实际是 7200 秒
+  if (currentTimestamp - parseInt(timestamp) > 6000000) {
+    return getAccessTokenFromWX();
+  }
+  return token;
+}
+
+async function getAccessTokenFromWX() {
+  const result = await axios.get(
+    'https://api.weixin.qq.com/cgi-bin/token',
+    {
+      params: {
+        grant_type: 'client_credential',
+        appid: process.env.MINI_APPID,
+        secret: process.env.MINI_APP_SECRET,
+      }
+    }
+  );
+  const { access_token: token } = result.data;
+  fs.writeFileSync('.wx_access_token', `${token},${new Date().getTime()}`);
+  return token;
+}
