@@ -6,6 +6,11 @@ export async function chatgpt(ctx) {
     apiKey: process.env.OPENAI_API_KEY
   });
   const { cid, pid, msg, openid } = ctx.request.body;
+  if (!openid) {
+    ctx.body = { cid, pid, text: '小程序版本过时, 请退出重新进入' };
+    ctx.status = 200;
+    return;
+  }
   let res = {};
   const isSensitive = await msgSecCheck(msg, openid);
   if (isSensitive) {
